@@ -1,0 +1,62 @@
+name: AI Application CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Backend Dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Train ML Model
+      run: |
+        cd backend
+        python model/train_model.py
+        
+    - name: Run Tests (with Pytest)
+      run: |
+        cd backend
+        pytest tests/
+
+  deploy-backend:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy to Render
+      # Note: Render provides automatic GitHub integration. 
+      # This step is just a placeholder to show where the webhook trigger would go if manual deployment via actions is preferred.
+      # Usually, you connect the repo directly in Render, and Render handles CD when push to main happens.
+      run: |
+        echo "Tests passed! Render will automatically pick up the new commit and start the deployment."
+
+  deploy-frontend:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy to Vercel
+      # Note: Vercel also provides automatic GitHub integration.
+      run: |
+        echo "Tests passed! Vercel will automatically deploy the frontend changes."
