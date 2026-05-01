@@ -18,18 +18,27 @@
         <main>
             <div class="input-section">
                 <textarea id="news-text" placeholder="Paste the news article or headline here..."></textarea>
-                <button id="analyze-btn" class="primary-btn">Analyze Text</button>
+                <button id="analyze-btn" class="primary-btn">Check News</button>
             </div>
 
             <div id="result-section" class="result-section hidden">
-                <h2>Prediction Result</h2>
+                <h2>🌐 AI Fact-Check Result</h2>
                 <div id="prediction-badge" class="badge"></div>
-                <p id="prediction-text" class="prediction-text"></p>
+                
+                <div class="ai-explanation-box">
+                    <p id="prediction-text" class="prediction-text"></p>
+                </div>
+                
+                <details class="legacy-expander">
+                    <summary>Legacy Political ML Model Score (For Comparison)</summary>
+                    <p>The original ML model scored this as: <strong id="legacy-score"></strong></p>
+                    <small>Note: The legacy ML model is not connected to the internet and only analyzes keywords.</small>
+                </details>
             </div>
 
-            <div id="loading" class="hidden">
+            <div id="loading" class="hidden loading-container">
                 <div class="spinner"></div>
-                <p>Analyzing text...</p>
+                <p>AI is searching the internet...</p>
             </div>
             
             <div id="error-message" class="hidden error"></div>

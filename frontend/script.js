@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(data.error || 'Something went wrong on the server.');
             }
 
-            displayResult(data.prediction);
+            displayResult(data.ai_verdict, data.ai_explanation, data.legacy_prediction);
         } catch (error) {
             showError(`Error: ${error.message} - Ensure backend is running or update API_URL in script.js.`);
         } finally {
@@ -57,19 +57,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function displayResult(prediction) {
+    function displayResult(verdict, explanation, legacyScore) {
         // Reset classes
         predictionBadge.className = 'badge';
         
-        if (prediction === 'Real') {
-            predictionBadge.textContent = 'REAL NEWS';
+        if (verdict === 'TRUE') {
+            predictionBadge.textContent = 'REAL NEWS (AI Verified)';
             predictionBadge.classList.add('real');
-            predictionText.textContent = "Our model indicates this text is likely true.";
-        } else {
-            predictionBadge.textContent = 'FAKE NEWS';
+        } else if (verdict === 'FALSE') {
+            predictionBadge.textContent = 'FAKE NEWS (AI Verified)';
             predictionBadge.classList.add('fake');
-            predictionText.textContent = "Our model indicates this text is likely false or misleading.";
+        } else {
+            predictionBadge.textContent = 'UNVERIFIABLE';
+            predictionBadge.classList.add('unverifiable');
         }
+
+        predictionText.textContent = explanation || "No explanation provided.";
+        document.getElementById('legacy-score').textContent = legacyScore || "Unknown";
 
         resultSection.classList.remove('hidden');
     }

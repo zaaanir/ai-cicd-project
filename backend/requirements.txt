@@ -4,3 +4,6 @@ gunicorn
 pytest
 flask-cors
 numpy
+duckduckgo-search
+wikipedia
+requests

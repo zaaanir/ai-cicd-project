@@ -1,13 +1,13 @@
 :root {
-    --primary-color: #4f46e5;
-    --primary-hover: #4338ca;
-    --bg-color: #f9fafb;
-    --card-bg: #ffffff;
-    --text-main: #111827;
-    --text-muted: #6b7280;
-    --border-color: #e5e7eb;
-    --real-color: #10b981;
-    --fake-color: #ef4444;
+    --primary-color: #2d3748;
+    --primary-hover: #1a202c;
+    --bg-color: #2d3748; /* Dark Grey */
+    --card-bg: #edf2f7; /* Light Grey */
+    --text-main: #1a202c;
+    --text-muted: #4a5568;
+    --border-color: #cbd5e0;
+    --real-color: #059669;
+    --fake-color: #dc2626;
 }
 
 * {
@@ -32,8 +32,8 @@ body {
     max-width: 600px;
     width: 100%;
     padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 header {
@@ -137,9 +137,7 @@ textarea:focus {
 }
 
 .prediction-text {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-style: italic;
+    /* Removed old inline styles to use new block styles above */
 }
 
 .hidden {
@@ -157,20 +155,23 @@ textarea:focus {
 }
 
 /* Loader Styles */
-#loading {
+.loading-container {
     margin-top: 30px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     color: var(--text-muted);
+    font-weight: 500;
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(79, 70, 229, 0.2);
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(45, 55, 72, 0.2);
     border-top-color: var(--primary-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin: 0 auto 10px auto;
 }
 
 @keyframes spin {
@@ -180,4 +181,53 @@ textarea:focus {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+.badge.unverifiable {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.ai-explanation-box {
+    margin: 15px 0 25px 0;
+    padding: 15px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.prediction-text {
+    font-size: 14px;
+    color: var(--text-main);
+    line-height: 1.6;
+    font-style: normal;
+    white-space: pre-wrap;
+}
+
+.legacy-expander {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.legacy-expander summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-muted);
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.legacy-expander p {
+    font-size: 14px;
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+
+.legacy-expander small {
+    font-size: 12px;
+    color: var(--text-muted);
 }
